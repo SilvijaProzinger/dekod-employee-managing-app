@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 main {
   max-width: 1200px;
   display: flex;
@@ -5,4 +7,19 @@ main {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+
+  .new-employee__link {
+    background-color: $accent-color;
+    padding: .5rem .75rem;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 7px;
+    margin: 2rem;
+
+    &:hover {
+      background-color: $accent-lighter-color;
+      color: $secondary-color;
+      cursor: pointer;
+    }
+  }
 }
