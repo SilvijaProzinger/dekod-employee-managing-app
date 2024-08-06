@@ -10,6 +10,10 @@
 body {
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 0;
   background-color: $primary-color;

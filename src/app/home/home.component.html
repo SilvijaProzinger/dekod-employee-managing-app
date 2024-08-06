@@ -1,4 +1,9 @@
-<div class="home-container">
-  <app-header></app-header>
-  <app-employees-list></app-employees-list>
-</div>
+<app-header></app-header>
+<main>
+  <div class="home-container">
+    <a routerLink="addNewEmployee" class="new-employee-link"
+      >Add new employee</a
+    >
+    <app-employees-list></app-employees-list>
+  </div>
+</main>

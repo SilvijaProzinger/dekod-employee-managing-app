@@ -10,6 +10,7 @@
   >
     No employees found.
   </div>
+
   <ng-container *ngIf="employees$ | async as employees">
     <div *ngFor="let employee of employees" class="employee-card">
       <h3 class="employee-card__name">

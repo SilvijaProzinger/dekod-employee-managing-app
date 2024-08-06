@@ -5,12 +5,11 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 2rem;
 
   .employee-card {
     flex: 1 1 0;
-    min-width: 250px; 
-    min-height: 150px; 
+    min-width: 250px;
+    min-height: 150px;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -38,7 +37,7 @@
     }
 
     .employee-card__dob span {
-        font-weight: 600;
+      font-weight: 600;
     }
   }
 }
