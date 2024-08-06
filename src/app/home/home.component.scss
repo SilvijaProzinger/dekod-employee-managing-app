@@ -8,18 +8,25 @@ main {
   justify-content: center;
   padding: 1.5rem;
 
-  .new-employee__link {
-    background-color: $accent-color;
-    padding: .5rem .75rem;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 7px;
-    margin: 2rem;
+  .options-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0;
+    width: 100%;
 
-    &:hover {
-      background-color: $accent-lighter-color;
-      color: $secondary-color;
-      cursor: pointer;
+    .new-employee__link {
+      background-color: $accent-color;
+      padding: 0.5rem 0.75rem;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 7px;
+
+      &:hover {
+        background-color: $accent-lighter-color;
+        color: $secondary-color;
+        cursor: pointer;
+      }
     }
   }
 }

@@ -1,8 +1,11 @@
 <main>
   <div class="home-container">
-    <a routerLink="addNewEmployee" class="new-employee__link"
-      >Add new employee</a
-    >
+    <div class="options-container">
+      <app-search-employees></app-search-employees>
+      <a routerLink="/addNewEmployee" class="new-employee__link"
+        >Add new employee</a
+      >
+    </div>
     <app-employees-list></app-employees-list>
   </div>
 </main>
