@@ -1,0 +1,38 @@
+@import "./variables";
+
+button {
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 0.5rem 0.75rem;
+  color: #fff;
+  border-radius: 7px;
+  border: 1px solid transparent;
+
+  &:disabled {
+    background-color: #cccbc8;
+  }
+
+  @media (min-width: 768px) {
+    width: auto;
+  }
+}
+
+.primary {
+  background-color: $accent-color;
+
+  &:hover {
+    background-color: $accent-lighter-color;
+    color: $secondary-color;
+  }
+}
+
+.outlined {
+  background-color: transparent;
+  border: 1px solid $accent-color;
+  color: $accent-color;
+
+  &:hover {
+    border: 1px solid $accent-lighter-color;
+  }
+}

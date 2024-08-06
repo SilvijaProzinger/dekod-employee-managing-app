@@ -1,1 +1,67 @@
-<p>new-employee-form works!</p>
+<div class="form__container">
+  <h1>Add New Employee</h1>
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="form__group">
+      <label for="firstName">First Name:</label>
+      <input id="firstName" formControlName="firstName" type="text" />
+      <div
+        *ngIf="
+          employeeForm.get('firstName')?.invalid &&
+          employeeForm.get('firstName')?.touched
+        "
+        class="form__error"
+      >
+        First name is required.
+      </div>
+    </div>
+
+    <div class="form__group">
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" formControlName="lastName" type="text" />
+      <div
+        *ngIf="
+          employeeForm.get('lastName')?.invalid &&
+          employeeForm.get('lastName')?.touched
+        "
+        class="form__error"
+      >
+        Last name is required.
+      </div>
+    </div>
+
+    <div class="form__group">
+      <label for="jobTitle">Position:</label>
+      <input id="jobTitle" formControlName="jobTitle" type="text" />
+      <div
+        *ngIf="
+          employeeForm.get('jobTitle')?.invalid &&
+          employeeForm.get('jobTitle')?.touched
+        "
+        class="form__error"
+      >
+        Position is required.
+      </div>
+    </div>
+
+    <div class="form__group">
+      <label for="dateOfBirth">Date of Birth:</label>
+      <input id="dateOfBirth" type="date" formControlName="dateOfBirth" />
+      <div
+        *ngIf="
+          employeeForm.get('dateOfBirth')?.invalid &&
+          employeeForm.get('dateOfBirth')?.touched
+        "
+        class="form__error"
+      >
+        <div *ngIf="employeeForm.get('dateOfBirth')?.errors?.['required']">
+          Date of birth is required.
+        </div>
+        <div *ngIf="employeeForm.get('dateOfBirth')?.errors?.['invalidDateOfBirth']">
+          You must be at least 18 years old.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="employeeForm.invalid" class="primary">Save</button>
+  </form>
+</div>
