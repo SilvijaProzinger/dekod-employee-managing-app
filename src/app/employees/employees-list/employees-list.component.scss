@@ -1,0 +1,44 @@
+@import "../../../styles/variables";
+
+.employees-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+
+  .employee-card {
+    flex: 1 1 0;
+    min-width: 250px; 
+    min-height: 150px; 
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    background-color: $primary-darker-color;
+    margin: 0.75rem;
+    border-radius: 7px;
+
+    .employee-card__name {
+      font-weight: 600;
+    }
+
+    .employee-card__position {
+      background-color: $accent-lighter-color;
+      color: $accent-color;
+      padding: 0.5rem;
+      width: fit-content;
+      border-radius: 7px;
+    }
+
+    .employee-card__id {
+      color: $secondary-lighter-color;
+      font-size: 0.875rem;
+    }
+
+    .employee-card__dob span {
+        font-weight: 600;
+    }
+  }
+}

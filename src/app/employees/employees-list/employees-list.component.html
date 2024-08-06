@@ -1,0 +1,25 @@
+<div class="employees-list">
+  <div *ngIf="isLoading" class="employees-list__loading">Loading...</div>
+  <div *ngIf="fetchEmployeesError && !isLoading" class="error">
+    {{ fetchEmployeesError }}
+  </div>
+  <div
+    *ngIf="
+      !(isLoading || fetchEmployeesError) && (employees$ | async)?.length === 0
+    "
+  >
+    No employees found.
+  </div>
+  <ng-container *ngIf="employees$ | async as employees">
+    <div *ngFor="let employee of employees" class="employee-card">
+      <h3 class="employee-card__name">
+        {{ employee.firstName }} {{ employee.lastName }}
+      </h3>
+      <p class="employee-card__id">#{{ employee.id }}</p>
+      <p class="employee-card__position">{{ employee.jobTitle }}</p>
+      <p class="employee-card__dob">
+        <span>Date of Birth:</span> {{ employee.dateOfBirth | date }}
+      </p>
+    </div>
+  </ng-container>
+</div>
