@@ -5,6 +5,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 
   .employee-card {
     flex: 1 1 0;
@@ -16,7 +17,6 @@
     justify-content: center;
     gap: 0.75rem;
     background-color: $primary-darker-color;
-    margin: 0.75rem;
     border-radius: 7px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 

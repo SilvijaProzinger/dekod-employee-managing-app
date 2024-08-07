@@ -1,13 +1,13 @@
 <header class="header">
   <div class="breadcrumbs__container">
     <p *ngIf="currentRoute === '/addNewEmployee'; else staticHome">
-      <a routerLink="/">Home</a>
+      <a routerLink="/" class="breadcrumbs__item">Home</a>
     </p>
     <ng-template #staticHome>
       <p class="breadcrumbs__item">Home</p>
     </ng-template>
     <ng-container *ngIf="currentRoute === '/addNewEmployee'">
-      <p><span> > </span> Add new employee</p>
+      <p class="breadcrumbs__item"><span>></span> Add new employee</p>
     </ng-container>
   </div>
 
