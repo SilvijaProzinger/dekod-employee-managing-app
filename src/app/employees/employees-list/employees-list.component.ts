@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { Observable, of, map, BehaviorSubject } from 'rxjs';
 import { catchError, finalize, startWith } from 'rxjs/operators';
 import { SearchEmployeesComponent } from '../search-employees/search-employees.component';
+import { FilterEmployeesComponent } from '../../filter-employees/filter-employees.component';
 
 @Component({
   selector: 'app-employees-list',
   standalone: true,
-  imports: [CommonModule, SearchEmployeesComponent],
+  imports: [CommonModule, SearchEmployeesComponent, FilterEmployeesComponent],
   templateUrl: './employees-list.component.html',
   styleUrl: './employees-list.component.scss',
 })
@@ -19,6 +20,8 @@ export class EmployeesListComponent {
   filteredEmployees$: Observable<Employee[]> = this.employees$.asObservable();
   isLoading = false;
   fetchEmployeesError: string | null = null;
+  searchQuery = '';
+  selectedFilters: Set<string> = new Set();
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -45,15 +48,32 @@ export class EmployeesListComponent {
       .subscribe((employees: Employee[]) => this.employees$.next(employees));
   }
 
-  onSearchChange(search: string): void {
-    this.filteredEmployees$ = this.employees$.pipe(
-      map((employees: Employee[]) =>
-        employees.filter(
-          (employee: Employee) =>
-            employee.firstName.toLowerCase().includes(search.toLowerCase()) ||
-            employee.lastName.toLowerCase().includes(search.toLowerCase())
-        )
-      )
-    );
+  onSearch(search: string): void {
+    this.searchQuery = search;
+    this.applyListOptions();
+  }
+
+  onFilter(positions: Set<string>): void {
+    this.selectedFilters = positions;
+    this.applyListOptions();
+  }
+
+  applyListOptions(): void {
+    console.log(this.selectedFilters)
+    const filtered = this.employees$.getValue().filter((employee) => {
+      const matchesSearch =
+        employee.firstName
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase()) ||
+        employee.lastName
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase());
+      const matchesJobTitle =
+        this.selectedFilters.size === 0 ||
+        this.selectedFilters.has(employee.jobTitle);
+
+      return matchesSearch && matchesJobTitle;
+    });
+    this.filteredEmployees$ = of(filtered);
   }
 }
