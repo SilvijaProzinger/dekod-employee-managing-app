@@ -1,29 +1,36 @@
 <div class="employees-container">
-  <app-search-employees
-    (searchValue)="onSearchChange($event)"
-  ></app-search-employees>
-
-  <div class="employees-list">
-    <div *ngIf="isLoading" class="employees-list__loading">Loading...</div>
-    <div *ngIf="fetchEmployeesError && !isLoading" class="error">
-      {{ fetchEmployeesError }}
+  <div class="filter__sidebar">
+    <app-filter-employees
+      [employees$]="employees$"
+      (positionsOutput)="onFilter($event)"
+    ></app-filter-employees>
+  </div>
+  <div>
+    <app-search-employees
+      (searchValue)="onSearch($event)"
+    ></app-search-employees>
+    <div class="employees-list">
+      <div *ngIf="isLoading" class="employees-list__loading">Loading...</div>
+      <div *ngIf="fetchEmployeesError && !isLoading" class="error">
+        {{ fetchEmployeesError }}
+      </div>
+      <ng-container *ngIf="filteredEmployees$ | async as employees">
+        <div
+          *ngIf="!(isLoading || fetchEmployeesError) && employees.length === 0"
+        >
+          No employees found.
+        </div>
+        <div *ngFor="let employee of employees" class="employee-card">
+          <h3 class="employee-card__name">
+            {{ employee.firstName }} {{ employee.lastName }}
+          </h3>
+          <p class="employee-card__id">#{{ employee.id }}</p>
+          <p class="employee-card__position">{{ employee.jobTitle }}</p>
+          <p class="employee-card__dob">
+            <span>Date of Birth:</span> {{ employee.dateOfBirth | date }}
+          </p>
+        </div>
+      </ng-container>
     </div>
-    <ng-container *ngIf="filteredEmployees$ | async as employees">
-      <div
-        *ngIf="!(isLoading || fetchEmployeesError) && employees.length === 0"
-      >
-        No employees found.
-      </div>
-      <div *ngFor="let employee of employees" class="employee-card">
-        <h3 class="employee-card__name">
-          {{ employee.firstName }} {{ employee.lastName }}
-        </h3>
-        <p class="employee-card__id">#{{ employee.id }}</p>
-        <p class="employee-card__position">{{ employee.jobTitle }}</p>
-        <p class="employee-card__dob">
-          <span>Date of Birth:</span> {{ employee.dateOfBirth | date }}
-        </p>
-      </div>
-    </ng-container>
   </div>
 </div>

@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+
+.filter__container {
+  width: 250px;
+  padding: 1.5rem;
+  background-color: $accent-lighter-color;
+  border-radius: 7px;
+
+  .filter__title {
+    margin: .5rem 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  input {
+    margin: .5rem 0;
+  }
+}

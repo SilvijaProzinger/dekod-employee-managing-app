@@ -2,17 +2,17 @@
 
 .employees-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   gap: 2rem;
   width: 100%;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
 
   .employees-list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
+    margin-top: 1.5rem;
 
     .employee-card {
       min-width: 250px;
