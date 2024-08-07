@@ -34,8 +34,8 @@ export class FilterEmployeesComponent {
   }
 
   handleFilterChange(event: Event, position: string): void {
-    const checked = event.target as HTMLInputElement;
-    if (checked) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
       this.checkedPositions.add(position);
     } else {
       this.checkedPositions.delete(position);
