@@ -1,27 +1,22 @@
-# DekodEmployeeManagingApp
+# Employees managing app
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
+This is a web app made with Angular 17, which displays a list of employees fetched from an API, sorts the list by name, filters by position and searches by name. It additionally allows the user to create a new employee.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+* Users can view employee list fetched from API
+* Users can search for an employee by name
+* Users can filter through employee list by position
+* Users can sort the list by first name
+* Users can add a new employee
+* Breadcrumbs at the top of add new employee page so that the user can navigate back home
 
-## Code scaffolding
+## How to run
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Open Node.js command prompt 
+* Install angular CLI globally using `npm install -g @angular/cli` if necessary
+* Download or clone the repository
+* Go to the local repository folder by using command `cd [repository-name]`
+* Run `npm install` to install required project dependencies
+* Run `npm start` or `ng serve` to open the project locally on your browser. The localhost url is `http://localhost:4200/`
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
