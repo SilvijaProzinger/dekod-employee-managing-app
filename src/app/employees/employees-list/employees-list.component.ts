@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Employee } from '../../types/types';
 import { EmployeeService } from '../shared/employees.service';
 import { CommonModule } from '@angular/common';
-import { Observable, of, map, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, finalize, startWith } from 'rxjs/operators';
 import { SearchEmployeesComponent } from '../search-employees/search-employees.component';
 import { FilterEmployeesComponent } from '../../filter-employees/filter-employees.component';
 import { PaginationComponent } from '../../pagination/pagination.component';
+import { SortEmployeesComponent } from '../../sort-employees/sort-employees.component';
 
 @Component({
   selector: 'app-employees-list',
@@ -16,6 +17,7 @@ import { PaginationComponent } from '../../pagination/pagination.component';
     SearchEmployeesComponent,
     FilterEmployeesComponent,
     PaginationComponent,
+    SortEmployeesComponent,
   ],
   templateUrl: './employees-list.component.html',
   styleUrl: './employees-list.component.scss',
@@ -26,11 +28,16 @@ export class EmployeesListComponent {
   filteredEmployees$: Observable<Employee[]> = this.employees$.asObservable();
   isLoading = false;
   fetchEmployeesError: string | null = null;
+
   searchQuery = '';
+
   selectedFilters: Set<string> = new Set();
-  currentPage: number = 1;
-  pageSize: number = 9;
-  totalItems: number = 0;
+
+  currentPage = 1;
+  pageSize = 9;
+  totalItems = 0;
+
+  sortBy = '';
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -78,6 +85,11 @@ export class EmployeesListComponent {
     this.applyListOptions();
   }
 
+  onSortChange(sortOption: string): void {
+    this.sortBy = sortOption;
+    this.applyListOptions();
+  }
+
   applyListOptions(): void {
     const filtered = this.employees$.getValue().filter((employee) => {
       const matchesSearch =
@@ -93,9 +105,19 @@ export class EmployeesListComponent {
 
       return matchesSearch && matchesJobTitle;
     });
+
+    const sorted = filtered.sort((a, b) => {
+      if (this.sortBy === 'asc') {
+        return a.firstName.toLowerCase().localeCompare(b.firstName);
+      } else if (this.sortBy === 'desc') {
+        return b.firstName.toLowerCase().localeCompare(a.firstName);
+      }
+      return 0;
+    });
+
     this.totalItems = filtered.length;
     const start = (this.currentPage - 1) * this.pageSize;
     const end = start + this.pageSize;
-    this.filteredEmployees$ = of(filtered.slice(start, end));
+    this.filteredEmployees$ = of(sorted.slice(start, end));
   }
 }
