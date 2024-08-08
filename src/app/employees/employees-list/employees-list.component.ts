@@ -6,11 +6,17 @@ import { Observable, of, map, BehaviorSubject } from 'rxjs';
 import { catchError, finalize, startWith } from 'rxjs/operators';
 import { SearchEmployeesComponent } from '../search-employees/search-employees.component';
 import { FilterEmployeesComponent } from '../../filter-employees/filter-employees.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
 
 @Component({
   selector: 'app-employees-list',
   standalone: true,
-  imports: [CommonModule, SearchEmployeesComponent, FilterEmployeesComponent],
+  imports: [
+    CommonModule,
+    SearchEmployeesComponent,
+    FilterEmployeesComponent,
+    PaginationComponent,
+  ],
   templateUrl: './employees-list.component.html',
   styleUrl: './employees-list.component.scss',
 })
@@ -22,6 +28,9 @@ export class EmployeesListComponent {
   fetchEmployeesError: string | null = null;
   searchQuery = '';
   selectedFilters: Set<string> = new Set();
+  currentPage: number = 1;
+  pageSize: number = 9;
+  totalItems: number = 0;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -45,21 +54,32 @@ export class EmployeesListComponent {
           this.isLoading = false;
         })
       )
-      .subscribe((employees: Employee[]) => this.employees$.next(employees));
+      .subscribe((employees: Employee[]) => {
+        this.employees$.next(employees);
+        this.totalItems = employees.length;
+        this.applyListOptions();
+      });
   }
 
   onSearch(search: string): void {
     this.searchQuery = search;
+    this.currentPage = 1;
     this.applyListOptions();
   }
 
   onFilter(positions: Set<string>): void {
     this.selectedFilters = positions;
+    this.currentPage = 1;
+    this.applyListOptions();
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
     this.applyListOptions();
   }
 
   applyListOptions(): void {
-    console.log(this.selectedFilters)
+    console.log(this.totalItems)
     const filtered = this.employees$.getValue().filter((employee) => {
       const matchesSearch =
         employee.firstName
@@ -74,6 +94,9 @@ export class EmployeesListComponent {
 
       return matchesSearch && matchesJobTitle;
     });
-    this.filteredEmployees$ = of(filtered);
+    this.totalItems = filtered.length;
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.filteredEmployees$ = of(filtered.slice(start, end));
   }
 }
