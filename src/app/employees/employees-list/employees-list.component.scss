@@ -2,10 +2,15 @@
 
 .employees-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 2rem;
   width: 100%;
   margin: 1.5rem 0;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 
   .employees-list {
     display: flex;
@@ -15,6 +20,7 @@
     margin-top: 1.5rem;
 
     .employee-card {
+      width: 100%;
       min-width: 250px;
       min-height: 150px;
       padding: 1rem;
@@ -25,6 +31,10 @@
       background-color: $primary-darker-color;
       border-radius: 7px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+      @media (min-width: 768px){
+        width: auto;
+      }
 
       .employee-card__name {
         font-weight: 600;

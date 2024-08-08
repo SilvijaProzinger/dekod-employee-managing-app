@@ -1,18 +1,37 @@
 @import "../../styles/variables";
 
 .filter__container {
-  width: 250px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
   padding: 1.5rem;
   background-color: $accent-lighter-color;
   border-radius: 7px;
 
+  @media (min-width: 768px) {
+    width: 250px;
+    height: 100%;
+    flex-direction: column;
+    align-items: baseline;
+  }
+
   .filter__title {
-    margin: .5rem 0;
+    margin: 0.5rem 0;
     font-weight: 600;
     font-size: 1.2rem;
+    flex: 100%;
+
+    @media (min-width: 768px) {
+      flex: none;
+    }
+  }
+
+  .checkbox__item {
+    margin-right: 1rem;
   }
 
   input {
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 }
