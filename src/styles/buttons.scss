@@ -10,7 +10,9 @@ button {
   border: 1px solid transparent;
 
   &:disabled {
+    color: $primary-color;
     background-color: #cccbc8;
+    border-color: transparent;
   }
 
   @media (min-width: 768px) {

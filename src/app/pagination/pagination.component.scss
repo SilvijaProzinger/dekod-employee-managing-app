@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.pagination__container {
+  display: flex;
+  align-items: center;
+
+  .pagination__item {
+    margin-right: 0.5rem;
+
+    &.active {
+      background-color: $accent-color;
+      color: #fff;
+    }
+  }
+}
