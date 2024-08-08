@@ -13,6 +13,11 @@
     min-height: 640px;
   }
 
+  .options {
+    display: flex;
+    align-items: center;
+  }
+
   .employees-list {
     display: flex;
     flex-wrap: wrap;

@@ -2,23 +2,22 @@
 
 .search__container {
   width: fit-content;
+  margin-right: 1rem;
 
   form {
     display: flex;
     align-items: center;
     position: relative;
-
-    .search__icon {
-      position: absolute;
-      height: 15px;
-      margin: 0 5px;
-    }
-
+    
     input {
       width: 100%;
       padding: 0.375rem 1.5rem;
       border: 1px solid $secondary-lighter-color;
       border-radius: 7px;
+      background-image: url('../../../assets/icons8-search.svg');
+      background-repeat: no-repeat;
+      background-position: left 5px center;
+      background-size: 15px 15px;
     }
   }
 }

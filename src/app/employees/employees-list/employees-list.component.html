@@ -6,9 +6,14 @@
     ></app-filter-employees>
   </div>
   <div>
-    <app-search-employees
-      (searchValue)="onSearch($event)"
-    ></app-search-employees>
+    <div class="options">
+      <app-search-employees
+        (searchValue)="onSearch($event)"
+      ></app-search-employees>
+      <app-sort-employees
+        (sortOptionOutput)="onSortChange($event)"
+      ></app-sort-employees>
+    </div>
     <div class="employees-list">
       <div *ngIf="isLoading" class="employees-list__loading">Loading...</div>
       <div *ngIf="fetchEmployeesError && !isLoading" class="error">

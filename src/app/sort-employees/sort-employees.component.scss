@@ -1,0 +1,17 @@
+@import "../../styles/variables";
+
+.sort__container {
+  display: inline-block;
+  position: relative;
+
+  .sort {
+    padding: 0.375rem 1.5rem;
+    border: 1px solid $secondary-lighter-color;
+    border-radius: 7px;
+    width: 180px;
+    background-image: url("../../assets/descending-icon.svg");
+    background-repeat: no-repeat;
+    background-position: left 5px center;
+    background-size: 15px 15px;
+  }
+}

@@ -1,0 +1,11 @@
+<div class="sort__container">
+  <form>
+    <select name="names" class="sort" (change)="handleSortChange($event)">
+      <option value="" selected>
+        Sort by name
+      </option>
+      <option value="asc" class="sort__value">Ascending</option>
+      <option value="desc" class="sort__value">Descending</option>
+    </select>
+  </form>
+</div>
