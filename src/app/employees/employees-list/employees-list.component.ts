@@ -79,7 +79,6 @@ export class EmployeesListComponent {
   }
 
   applyListOptions(): void {
-    console.log(this.totalItems)
     const filtered = this.employees$.getValue().filter((employee) => {
       const matchesSearch =
         employee.firstName

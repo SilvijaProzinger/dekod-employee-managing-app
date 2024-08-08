@@ -10,6 +10,7 @@
 
   @media (min-width: 768px) {
     flex-direction: row;
+    min-height: 640px;
   }
 
   .employees-list {
@@ -18,6 +19,14 @@
     align-items: center;
     gap: 1rem;
     margin: 2rem 0;
+
+    @media (min-width: 768px){
+      min-width: 520px;
+    }
+
+    @media (min-width: 1024px){
+      min-width: 850px;
+    }
 
     .employee-card {
       width: 100%;
