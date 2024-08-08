@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Employee } from '../../types/types';
 
@@ -14,8 +14,44 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   getEmployees(): Observable<Employee[]> {
-    return this.http.get<{ data: Employee[] }>(this.apiUrl).pipe(
-      map((response: any) => response.data) 
-    );
+    return this.http
+      .get<{ data: Employee[] }>(this.apiUrl)
+      .pipe(map((response: any) => response.data));
+  }
+
+  applyListOptions(
+    employees: Employee[],
+    searchQuery: string,
+    selectedFilters: Set<string>,
+    sortBy: string,
+    currentPage: number,
+    pageSize: number,
+    totalItems: number
+  ): Observable<Employee[]> {
+    const filtered = employees.filter((employee) => {
+      const matchesSearch =
+        employee.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        employee.lastName.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesJobTitle =
+        selectedFilters.size === 0 || selectedFilters.has(employee.jobTitle);
+
+      return matchesSearch && matchesJobTitle;
+    });
+
+    totalItems = filtered.length
+
+    const sorted = filtered.sort((a, b) => {
+      if (sortBy === 'asc') {
+        return a.firstName.toLowerCase().localeCompare(b.firstName);
+      } else if (sortBy === 'desc') {
+        return b.firstName.toLowerCase().localeCompare(a.firstName);
+      }
+      return 0;
+    });
+
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+
+    return of(sorted.slice(start, end));
   }
 }

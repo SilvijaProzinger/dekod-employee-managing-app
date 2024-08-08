@@ -23,7 +23,7 @@ import { SortEmployeesComponent } from '../../sort-employees/sort-employees.comp
   styleUrl: './employees-list.component.scss',
 })
 export class EmployeesListComponent {
-  // initialize employees observer as behavior subject to cache http get response as api data changes randomly
+  // initialize employees observer as behavior subject to cache http get response, since api data changes randomly
   employees$ = new BehaviorSubject<Employee[]>([]);
   filteredEmployees$: Observable<Employee[]> = this.employees$.asObservable();
   isLoading = false;
@@ -64,60 +64,47 @@ export class EmployeesListComponent {
       .subscribe((employees: Employee[]) => {
         this.employees$.next(employees);
         this.totalItems = employees.length;
-        this.applyListOptions();
+        this.callListOptions();
       });
   }
 
   onSearch(search: string): void {
     this.searchQuery = search;
     this.currentPage = 1;
-    this.applyListOptions();
+    this.callListOptions();
   }
 
   onFilter(positions: Set<string>): void {
     this.selectedFilters = positions;
     this.currentPage = 1;
-    this.applyListOptions();
+    this.callListOptions();
   }
 
   onPageChange(page: number): void {
     this.currentPage = page;
-    this.applyListOptions();
+    this.callListOptions();
   }
 
   onSortChange(sortOption: string): void {
     this.sortBy = sortOption;
-    this.applyListOptions();
+    this.currentPage = 1;
+    this.callListOptions();
   }
 
-  applyListOptions(): void {
-    const filtered = this.employees$.getValue().filter((employee) => {
-      const matchesSearch =
-        employee.firstName
-          .toLowerCase()
-          .includes(this.searchQuery.toLowerCase()) ||
-        employee.lastName
-          .toLowerCase()
-          .includes(this.searchQuery.toLowerCase());
-      const matchesJobTitle =
-        this.selectedFilters.size === 0 ||
-        this.selectedFilters.has(employee.jobTitle);
-
-      return matchesSearch && matchesJobTitle;
-    });
-
-    const sorted = filtered.sort((a, b) => {
-      if (this.sortBy === 'asc') {
-        return a.firstName.toLowerCase().localeCompare(b.firstName);
-      } else if (this.sortBy === 'desc') {
-        return b.firstName.toLowerCase().localeCompare(a.firstName);
-      }
-      return 0;
-    });
-
-    this.totalItems = filtered.length;
-    const start = (this.currentPage - 1) * this.pageSize;
-    const end = start + this.pageSize;
-    this.filteredEmployees$ = of(sorted.slice(start, end));
+  // call applyListOptions from service, which applies filter, search, sort and pagination
+  callListOptions(): void {
+    this.employeeService
+      .applyListOptions(
+        this.employees$.getValue(),
+        this.searchQuery,
+        this.selectedFilters,
+        this.sortBy,
+        this.currentPage,
+        this.pageSize, 
+        this.totalItems
+      )
+      .subscribe((result: Employee[]) => {
+        this.filteredEmployees$ = of(result);
+      });
   }
 }

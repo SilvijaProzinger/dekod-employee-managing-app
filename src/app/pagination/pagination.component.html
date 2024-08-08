@@ -1,4 +1,4 @@
-<div class="pagination__container" *ngIf="totalPages > 1">
+<div class="pagination__container" *ngIf="totalItems > 9 ">
   <button
     (click)="changePage(currentPage - 1)"
     [disabled]="currentPage === 1"
