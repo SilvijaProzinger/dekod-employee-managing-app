@@ -93,18 +93,16 @@ export class EmployeesListComponent {
 
   // call applyListOptions from service, which applies filter, search, sort and pagination
   callListOptions(): void {
-    this.employeeService
-      .applyListOptions(
-        this.employees$.getValue(),
-        this.searchQuery,
-        this.selectedFilters,
-        this.sortBy,
-        this.currentPage,
-        this.pageSize, 
-        this.totalItems
-      )
-      .subscribe((result: Employee[]) => {
-        this.filteredEmployees$ = of(result);
-      });
+    const result = this.employeeService.applyListOptions(
+      this.employees$.getValue(),
+      this.searchQuery,
+      this.selectedFilters,
+      this.sortBy,
+      this.currentPage,
+      this.pageSize
+    );
+
+    this.filteredEmployees$ = result.filteredEmployees$;
+    this.totalItems = result.totalItems;
   }
 }

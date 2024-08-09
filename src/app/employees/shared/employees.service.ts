@@ -25,9 +25,8 @@ export class EmployeeService {
     selectedFilters: Set<string>,
     sortBy: string,
     currentPage: number,
-    pageSize: number,
-    totalItems: number
-  ): Observable<Employee[]> {
+    pageSize: number
+  ): { filteredEmployees$: Observable<Employee[]>; totalItems: number } {
     const filtered = employees.filter((employee) => {
       const matchesSearch =
         employee.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -38,7 +37,7 @@ export class EmployeeService {
       return matchesSearch && matchesJobTitle;
     });
 
-    totalItems = filtered.length
+    const totalItems = filtered.length;
 
     const sorted = filtered.sort((a, b) => {
       if (sortBy === 'asc') {
@@ -52,6 +51,9 @@ export class EmployeeService {
     const start = (currentPage - 1) * pageSize;
     const end = start + pageSize;
 
-    return of(sorted.slice(start, end));
+    return {
+      filteredEmployees$: of(sorted.slice(start, end)),
+      totalItems: totalItems,
+    };
   }
 }
